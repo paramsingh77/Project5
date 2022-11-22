@@ -41,7 +41,7 @@ template <class T>
 void LL<T>::Copy(const LL<T> &right)
 {
     if (right.head == nullptr)
-        head = nullptrr;
+        head = nullptr;
     else
     {
         Node<T> *curRight = right.head;
