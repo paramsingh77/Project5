@@ -1,36 +1,30 @@
- #ifndef _STUFF_H
-#define _STUFF_H
-
+#include "1-LL.h"
 #include <iostream>
 using namespace std;
 
-const ThanksSize = 5;
-
-class Node
-{
-    int courseNumber;
-    int sizeArr;
-    double *gradeArr = new double[sizeArr];
-    Node *nextReciever;
-
-    Node(int courseNum, int sizeOfArr, int gradeArr[]);
-    friend class ThankYouNote;
-};
-
-
+/************************THINGS CLASS********************************/
 class Things
 {
-    Node *headGrade;
-    Node *helperNote(Node *c);
+    // data members
+    int courseNumber;
+    int noOfItems;
+    double *d;
 
 public:
+    // constructors
     Things();
-    ~Things();
+    Things(int courseN, int noItems, double *array);
+
+    // Copy Constructor
     Things(const Things &right);
-    bool InsertCourse(string LastName, string FirstName, string StreetAddress, string city, string ST, string zip, string thanks);
-    bool removeNotebyLastName(string lastName);
-    bool findNotebyFirstName(string lastName);
+
+    // Destructor
+    ~Things();
+    // Assignment Operator
+    Things &operator=(const Things &right);
+
+    // friend functions
+    friend bool operator<(const Things &left, const Things &right);
+    friend bool operator>(const Things &left, const Things &right);
+    friend ostream &operator<<(ostream &as, const Things &right);
 };
-
-
-

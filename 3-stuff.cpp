@@ -1,71 +1,102 @@
+#include "1-LL.h"
 #include "2-stuff.h"
 
 #include <iostream>
 using namespace std;
-#include <fstream>
-ThankYouNote::ThankYouNote()
+
+/**********************************************************************
+Function/method Name - Stuff Constructor
+Function/method Description  - This is a default constructor which will
+assign default values to variables.
+Return Value
+Incoming Parameters
+Outgoing Parameters
+**********************************************************************/
+
+Stuff::Stuff()
 {
-    noteHead = nullptr;
+    LastName = "Uknwon";
+    FirstName = "Not Available";
+    StreetAddress = "Uknown-street";
+    city = "uknown";
+    ST = "Alabama";
+    zip = "35632;";
 }
 
-bool ThankYouNote::InsertCourse(string LastN, string FirstN, string StreetA, string CT, string State, string zipCode, string thanksArray)
-{
+/**********************************************************************
+Function/method Name - Stuff parameterized constructor
+Function/method Description  - This parameterized constructor will take
+the value from the paramter and assign it to the data members.
+Return Value -N/A
+Incoming Parameters - N/A
+Outgoing Parameters - N/A
+**********************************************************************/
 
-    cout << "array recieved" << endl;
-    Node *noteH = new Node();
-    ofstream obj;
-    obj.open("fileHandling.txt");
-    string s;
-    noteH->LastName = LastN;
-    s << noteH->LastName;
-    s << endl;
-    noteH->FirstName = FirstN;
-    s << noteH->FirstName;
-    s << endl;
-    noteH->zip = zipCode;
-    s << noteH->zip;
-    s << endl;
+Stuff::Stuff(string LastN, string firstN, string street, string cT, string state, string zipCode, string thanksArray[])
+{
+    LastName = LastN;
+    FirstName = firstN;
+    StreetAddress = street;
+    city = cT;
+    ST = state;
+    zip = zipCode;
     for (int i = 0; i < ThanksSize; i++)
     {
-        noteH->thanks[i] = thanksArray[i];
-        s << noteH->thanks[i];
+        thanks[i] = thanksArray[i];
     }
-    helperNote(noteH);
 }
 
-Node *ThankYouNote::helperNote(Node *c)
+/**********************************************************************
+Function/method Name - friend function of operator<
+Function/method Description  - < operator will return if the condition will
+true by comparing both the sides.
+Return Value - N/A
+Incoming Parameters - N/A
+Outgoing Parameters -N/A
+**********************************************************************/
+
+/****************************************/
+// help by Dr. Jenkins
+bool operator<(const Stuff &left, const Stuff &right)
 {
-    Node *temp = noteHead;
-    if (noteHead == NULL)
-    {
-        noteHead = new Node();
-    }
-    else
-    {
-        while (temp->nextReciever != NULL)
-        {
-            temp = temp->nextReciever;
-            cout << "Moved to next course";
-        }
-        temp->nextReciever = c;
-    }
-    cout << "Course-Linked" << endl;
-    return temp;
+    return (left.LastName == right.LastName);
 }
 
-bool ThankYouNote::removeNotebyLastName(string name)
+/**********************************************************************
+Function/method Name - friend function of operator>
+Function/method Description  - > operator will return if the condition will
+true by comparing both the sides.
+Return Value - N/A
+Incoming Parameters - N/A
+Outgoing Parameters -N/A
+**********************************************************************/
+bool operator>(const Stuff &left, const Stuff &right)
 {
-    Node *prev = nullptr;
-    Node *forward = noteHead;
-    while (forward != nullptr && forward->LastName != name)
-    {
-        forward = forward->nextReciever;
-    }
-    Node *toDelete = forward;
-    if (forward->nextReciever == NULL)
-        prev->nextReciever = NULL;
-    else
-        prev->nextReciever = forward->nextReciever;
+    return (left.LastName < right.LastName);
+}
+/*********************************************/
 
-    delete forward;
+/**********************************************************************
+Function/method Name - friend function of operator<<(Insertion operator)
+Function/method Description  - << operator is the overloaded operator for
+printing the data from the copied class.
+true by comparing both the sides.
+Return Value - N/A
+Incoming Parameters - ostream &as and class passed.
+Outgoing Parameters -N/A
+**********************************************************************/
+
+ostream &operator<<(ostream &as, const Stuff &right)
+{
+    as << right.LastName << endl;
+    as << right.FirstName << endl;
+    as << right.city << endl;
+    as << right.zip << endl;
+    as << right.ST << endl;
+    as << right.StreetAddress << endl;
+    for (int i = 0; i < ThanksSize; i++)
+    {
+        cout << right.thanks[i] << endl;
+    }
+    return as;
 }

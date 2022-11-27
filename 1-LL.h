@@ -1,9 +1,12 @@
 #ifndef _LL_H
 #define _LL_H
+
 #include <iostream>
 using namespace std;
+
 template <class T>
 class LL;
+
 template <class T>
 class Node
 {
@@ -13,6 +16,7 @@ class Node
     Node(T d, Node *n);
     friend class LL<T>;
 };
+
 template <class T>
 class LL
 {
@@ -25,6 +29,7 @@ public:
     LL(const LL &right);
     ~LL();
     LL &operator=(const LL &right);
+
     bool Insert(T e);
     void Print() const;
     void Tinker() const;
@@ -32,11 +37,14 @@ public:
 // Node implementation
 template <class T>
 Node<T>::Node(T d) : data(d), next(nullptr) {}
+
 template <class T>
 Node<T>::Node(T d, Node<T> *n) : data(d), next(n) {}
+
 // Linked List Implementation
 template <class T>
 LL<T>::LL() : head(nullptr) {}
+
 template <class T>
 void LL<T>::Copy(const LL<T> &right)
 {
@@ -67,6 +75,7 @@ void LL<T>::Destroy()
         delete temp;
     }
 }
+
 template <class T>
 LL<T>::LL(const LL<T> &right)
 {
@@ -77,16 +86,18 @@ LL<T>::~LL()
 {
     Destroy();
 }
+
 template <class T>
 LL<T> &LL<T>::operator=(const LL<T> &right)
 {
     if (this != &right)
     {
         Destroy();
-        Copy();
+        Copy(right);
     }
     return *this;
 }
+
 template <class T>
 bool LL<T>::Insert(T item)
 {
@@ -108,6 +119,7 @@ bool LL<T>::Insert(T item)
     }
     return success;
 }
+
 template <class T>
 void LL<T>::Print() const
 {
@@ -118,6 +130,7 @@ void LL<T>::Print() const
         curr = curr->next;
     }
 }
+
 template <class T>
 void LL<T>::Tinker() const
 { // only to be used as is with 3 items inserted
@@ -125,4 +138,5 @@ void LL<T>::Tinker() const
         return;
     cout << head->next->next->data << endl;
 }
+
 #endif
